@@ -1,4 +1,4 @@
-STM32F4 Tiny template
+STM32F4 Tiny Template
 =====================
 
 A tiny code template for STM32F4 series processors.
