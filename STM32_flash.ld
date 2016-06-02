@@ -35,14 +35,6 @@ SECTIONS
 		. = ALIGN(4);
 	} >FLASH
 
-
-	.ARM.extab : { *(.ARM.extab* .gnu.linkonce.armextab.*) } >FLASH
-		.ARM : {
-		__exidx_start = .;
-			*(.ARM.exidx*)
-			__exidx_end = .;
-		} >FLASH
-
 	__etext=.;
 
 	.data : AT ( __etext)
@@ -74,6 +66,4 @@ SECTIONS
 		libm.a ( * )
 		libgcc.a ( * )
 	}
-
-	.ARM.attributes 0 : { *(.ARM.attributes) }
 }
