@@ -14,7 +14,7 @@ LDFLAGS+=-nostartfiles
 LDFLAGS+=-mthumb
 LDFLAGS+=-g
 
-
+DEPFLAGS+=-MT $@ -MMD -MP -MF $*.d
 
 
 
@@ -41,8 +41,8 @@ binary:
 info:
 	$(CROSS)$(SIZE) -A $(TARGET).elf
 
-%.o : %.c
-	$(CROSS)$(CC) $(CFLAGS) -c $< -o $@
+%.o : %.c %.d
+	$(CROSS)$(CC) $(CFLAGS) $(DEPFLAGS) -c $< -o $@
 
 %.o : %.s
 	$(CROSS)$(CC) $(CFLAGS) -c $< -o $@
@@ -51,5 +51,11 @@ clean:
 	rm -f $(OBJS)
 	rm -f $(TARGET).elf
 	rm -f $(TARGET).bin
+
+%.d: ;
+.PRECIOUS: %.d
+
+-include $(patsubst %,%.d,$(basename $(CSRCS)))
+
 
 
